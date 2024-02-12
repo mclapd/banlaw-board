@@ -1,6 +1,10 @@
 "use client";
 
+import { toast } from "sonner";
+import { Link2, Pencil, Trash2 } from "lucide-react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
+
+import { ConfirmModal } from "@/components/confirm-modal";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,15 +12,12 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Link2, Pencil, Trash } from "lucide-react";
-import { toast } from "sonner";
-import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
-import { ConfirmModal } from "@/components/confirm-modal";
+import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Button } from "@/components/ui/button";
 import { useRenameModal } from "@/store/use-rename-modal";
 
-interface ActionsPros {
+interface ActionsProps {
   children: React.ReactNode;
   side?: DropdownMenuContentProps["side"];
   sideOffset?: DropdownMenuContentProps["sideOffset"];
@@ -30,15 +31,15 @@ export const Actions = ({
   sideOffset,
   id,
   title,
-}: ActionsPros) => {
+}: ActionsProps) => {
   const { onOpen } = useRenameModal();
   const { mutate, pending } = useApiMutation(api.board.remove);
 
   const onCopyLink = () => {
     navigator.clipboard
       .writeText(`${window.location.origin}/board/${id}`)
-      .then(() => toast.success("Copied board link"))
-      .catch(() => toast.error("Failed to copy board link"));
+      .then(() => toast.success("Link copied"))
+      .catch(() => toast.error("Failed to copy link"));
   };
 
   const onDelete = () => {
@@ -77,7 +78,7 @@ export const Actions = ({
             variant="ghost"
             className="p-3 cursor-pointer text-sm w-full justify-start font-normal"
           >
-            <Trash className="h-4 w-4 mr-2" />
+            <Trash2 className="h-4 w-4 mr-2" />
             Delete
           </Button>
         </ConfirmModal>

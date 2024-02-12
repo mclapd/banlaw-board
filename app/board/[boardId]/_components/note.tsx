@@ -66,7 +66,7 @@ export const Note = ({
         )}
         style={{
           fontSize: calculateFontSize(width, height),
-          color: fill ? getContrastingTextColor(fill) : "#000",
+          color: fill ? getContrastingTextColor(fill) : "#FFF9B1",
         }}
       />
     </foreignObject>
